@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "lists.h"
+
+
+/**
+ * insert_node - adds a new node at the end of a listint_t list
+ * @number: number in node
+ * @head: integer to be included in new node
+ * Return: address of the new element or NULL if it fails
+ */
+
+
+listint_t *insert_node(listint_t **head, int number)
+{
+listint_t *temp = *head;
+listint_t *new_node;
+new_node = malloc(sizeof(listint_t));
+int x;
+if (new_node == NULL)
+return (NULL);
+
+new_node->n = number;
+new_node->next = (*head)->next;
+
+for (x = 0; temp->n <= number; x++)
+	{
+	temp = temp->next;
+	}
+new_node->next = temp->next;
+temp->next = new_node;
+return (*head);
+}
