@@ -20,10 +20,15 @@ if (head == NULL)
 
 new_node = malloc(sizeof(listint_t));
 if (new_node == NULL)
-return (NULL);
+	return (NULL);
 
 new_node->n = number;
-new_node->next = (*head)->next;
+new_node->next = NULL;
+if (*head == NULL)
+{
+	*head = new_node;
+	return (new_node);
+}
 
 while (temp->next != NULL && temp->next->n < number)
 	{
@@ -31,5 +36,6 @@ while (temp->next != NULL && temp->next->n < number)
 	}
 new_node->next = temp->next;
 temp->next = new_node;
+
 return (*head);
 }
