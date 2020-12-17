@@ -22,7 +22,7 @@ return (NULL);
 new_node->n = number;
 new_node->next = (*head)->next;
 
-while (temp->next->n < number)
+while (temp->n < number)
 	{
 	temp = temp->next;
 	}
