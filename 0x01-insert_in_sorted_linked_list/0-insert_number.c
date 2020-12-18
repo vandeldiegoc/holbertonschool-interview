@@ -30,6 +30,13 @@ if (*head == NULL)
 	return (new_node);
 }
 
+if (new_node->n < temp->n)
+	{
+		new_node->next = *head;
+		*head = new_node;
+		return (*head);
+	}
+
 while (temp->next != NULL && temp->next->n < number)
 	{
 	temp = temp->next;
