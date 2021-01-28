@@ -10,9 +10,11 @@ if __name__ == "__main__":
             "403": 0, "404": 0, "405": 0, "500": 0}
     try:
         for line in sys.stdin:
-            status_code = line.split('"')[2].split(" ")[1]
-            size = int(line.split('"')[2].split(" ")[2])
-            total_size += size
+            status_code = line.split(' ')
+            if len(status_code) > 2:
+                total_size += int(status_code[-1])
+            if status_code[-2] in code:
+                code[status_code[-2]] += 1
             nun += 1
             for key in sorted(code.keys()):
                 if status_code == key:
@@ -29,4 +31,4 @@ if __name__ == "__main__":
         print("File size: {:d}".format(total_size))
         for key in sorted(code.keys()):
             if code[key]:
-                print("{}: {:d}".format(key, code[key]))
+                print("{}: {}".format(key, code[key]))
