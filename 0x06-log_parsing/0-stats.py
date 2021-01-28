@@ -25,7 +25,7 @@ if __name__ == "__main__":
                     if code[key]:
                         print("{}: {:d}".format(key, code[key]))
                 nun = 0
-    except Exception:
+    except KeyboardInterrupt:
         pass
     finally:
         print("File size: {:d}".format(total_size))
