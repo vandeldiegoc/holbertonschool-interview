@@ -10,7 +10,7 @@ if __name__ == "__main__":
             "403": 0, "404": 0, "405": 0, "500": 0}
     try:
         for line in sys.stdin:
-            status_code = line.split(' ')
+            status_code = line.split(" ")
             if len(status_code) > 2:
                 total_size += int(status_code[-1])
             if status_code[-2] in code:
@@ -25,7 +25,7 @@ if __name__ == "__main__":
                     if code[key]:
                         print("{}: {:d}".format(key, code[key]))
                 nun = 0
-    except KeyboardInterrupt:
+    except Exception:
         pass
     finally:
         print("File size: {:d}".format(total_size))
