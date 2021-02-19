@@ -5,20 +5,31 @@
 def validUTF8(data):
     """method that determines if a given data
         set represents a valid UTF-8 encoding."""
-    try:
-        isvalid = True
-        for i in data:
-            i = i & 0xff
-            if i >= 192 and i < 224:
-                isvalid = False
-            if i >= 224 and i < 240:
-                isvalid = False
-            if i >= 240 and i < 248:
-                isvalid = False
-            if i >= 128 and i < 192:
-                isvalid = False
-            if i > 255:
-                isvalid = False
-        return(isvalid)
-    except Exception as e:
-        return(False)
+    n_bytes = 0
+
+    mask1 = 1 << 7
+
+    mask2 = 1 << 6
+    for num in data:
+
+        mask = 1 << 7
+        if n_bytes == 0:
+            while mask & num:
+                n_bytes += 1
+                mask = mask >> 1
+
+            if n_bytes == 0:
+                continue
+
+            if n_bytes == 1 or n_bytes > 4:
+                return False
+        else:
+
+            if not (num & mask1 and not (num & mask2)):
+                return False
+        n_bytes -= 1
+
+    if n_bytes == 0:
+        return True
+    else:
+        return False
