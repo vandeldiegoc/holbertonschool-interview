@@ -1,27 +1,20 @@
 #!/usr/bin/node
-
-const myArray = process.argv.slice(2);
 const request = require('request');
-
-if (Number.isInteger(parseInt(myArray[0]))) {
-  request('https://swapi.dev/api/films/' + myArray[0],
-    async (error, response, body) => {
-      if (error) console.error('error:', error);
-      const linksArray = JSON.parse(body).characters;
-      for (let index = 0; index < linksArray.length; index++) {
-        const name = await getName(linksArray[index]);
-        console.log(name);
+const url = 'https://swapi-api.hbtn.io/api/films/' + process.argv[2] + '/';
+request(url, function (error, response, body) {
+  if (error) { console.log(error); } else {
+    const listChar = JSON.parse(body).characters;
+    helper(listChar, 0);
+  }
+});
+function helper (listChar, i) {
+  const actor = listChar[i];
+  request(actor, function (error, response, body) {
+    if (error) { console.log(error); } else {
+      console.log(JSON.parse(body).name);
+      if (i < listChar.length - 1) {
+        helper(listChar, i + 1);
       }
-    });
-}
-
-function getName (link) {
-  const name = new Promise(
-    (resolve, reject) => {
-      request(link, (error, response, body) => {
-        if (error) console.error('error:', error);
-        resolve(JSON.parse(body).name);
-      });
-    });
-  return name;
+    }
+  });
 }
