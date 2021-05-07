@@ -1,38 +1,50 @@
 #!/usr/bin/python3
-
-""" Recursive function that queries the Reddit API"""
-
-import requests
+""" recursive """
+from requests import get
 
 
-def count_words(subreddit, word_list, after='', words_counting={}):
-    """ Recursive function that queries the Reddit API"""
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    h = {'User-Agent': 'vandel'}
-    payload = {'limit': '100', 'after': after}
-    r = requests.get(url, headers=h, params=payload, allow_redirects=False)
-    if r.status_code == 200:
-        data = r.json().get('data')
-        after = data.get('after')
-        children = data.get('children')
+def count_words(subreddit, word_list, after="", _pair={}):
+    """ count_words """
+    if not _pair:
+        for word in word_list:
+            _pair[word] = 0
+
+    if after is None:
+        word_list = [[key, value] for key, value in _pair.items()]
+        word_list = sorted(word_list, key=lambda x: (-x[1], x[0]))
+        for wd in word_list:
+            if wd[1]:
+                print("{}: {}".format(wd[0].lower(), wd[1]))
+        return None
+
+    url = "https://www.reddit.com/" + "r/{}/hot/.json".format(subreddit)
+
+    res = get(url, headers={'user-agent': 'vandel'},
+              params={'limit': 100, 'after': after}, allow_redirects=False)
+
+    if res.status_code != 200:
+        return None
+
+    try:
+        js = res.json()
+
+    except ValueError:
+        return None
+
+    try:
+
+        data = js.get("data")
+        after = data.get("after")
+        children = data.get("children")
         for child in children:
-            title = child.get('data').get('title')
-            for word in word_list:
-                ocurrences = title.lower().split().count(word.lower())
-                if ocurrences > 0:
-                    if word in words_counting:
-                        words_counting[word] += ocurrences
-                    else:
-                        words_counting[word] = ocurrences
+            post = child.get("data")
+            title = post.get("title")
+            lower = [sp.lower() for sp in title.split(' ')]
 
-        if after is not None:
-            return count_words(subreddit, word_list, after, words_counting)
-        else:
-            if not len(words_counting) > 0:
-                return
-            datas = sorted(words_counting.items(),
-                           key=lambda key_value: (-key_value[1], key_value[0]))
-            for key, value in datas:
-                print('{}: {}'.format(key.lower(), value))
-    else:
-        return
+            for wd in word_list:
+                _pair[wd] += lower.count(wd.lower())
+
+    except Exception:
+        return None
+
+    count_words(subreddit, word_list, after, _pair)
