@@ -1,6 +1,4 @@
 #include "sort.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 /**
  * final_merge - merges initial 2 parh array
