@@ -5,6 +5,8 @@ def rain(walls):
     """calculate how many square
        units of water will be retained
        after it rains """
+    if list is None:
+        return 0
     n = len(walls)
     res = 0
     for i in range(1, n - 1):
