@@ -18,7 +18,7 @@ def makeChange(coins, total):
         while (j < n):
 
             if sum(new) == total:
-                return new
+                return len(new)
             if sum(new) < total:
                 new.append(coins[j])
                 
