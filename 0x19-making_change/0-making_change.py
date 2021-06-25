@@ -3,11 +3,9 @@
 
 
 def makeChange(coins, total):
-    """
-    Returns: fewest number of coins needed to meet total
-        If total is 0 or less, return 0
-        If total cannot be met by any number of coins you have, return -1
-    """
+    """Given a pile of coins of different
+       values, determine the fewest number
+       of coins needed to meet a given amount total"""
     if not coins or coins is None:
         return -1
     if total <= 0:
