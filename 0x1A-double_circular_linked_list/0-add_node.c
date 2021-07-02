@@ -73,10 +73,11 @@ List *add_node_begin(List **list, char *str)
 
 	tmp = (*list)->prev;
 
-	new_node->next = (*list);
+	tmp->next = new_node;
+	new_node->next = *list;
 	new_node->prev = tmp;
-	(*list)->prev = tmp->next = new_node;
-	*list = new_node;
+	(*list)->prev = new_node;
+	return (new_node);
 
 	return (new_node);
 }
