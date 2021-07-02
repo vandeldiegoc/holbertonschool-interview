@@ -43,7 +43,6 @@ List *add_node_end(List **list, char *str)
 	return (new_node);
 }
 
-
 /**
  * add_node_end - Add a new node to the end of a double circular linked list:
  * @list: list to be modify
