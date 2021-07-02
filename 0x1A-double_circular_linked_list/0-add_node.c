@@ -10,9 +10,6 @@ List *add_node_end(List **list, char *str)
 {
 List *new_node, *tmp;
 
-if (*list == NULL)
-	return (NULL);
-
 if (str == NULL)
 	return (NULL);
 
