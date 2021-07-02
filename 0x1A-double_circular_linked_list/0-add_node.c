@@ -1,7 +1,7 @@
 #include "list.h"
 
 /**
- * add_node_end - Add a new node to the end of a double circular linked list: 
+ * add_node_end - Add a new node to the end of a double circular linked list:
  * @list: list to be modify
  * @str: string to copy onto the new node
  * Return: Returns: Address of the new node, or NULL on failure
@@ -43,7 +43,7 @@ return (*list);
 
 
 /**
- * add_node_end - Add a new node to the end of a double circular linked list: 
+ * add_node_end - Add a new node to the end of a double circular linked list:
  * @list: list to be modify
  * @str: string to copy onto the new node
  * Return: Returns: Address of the new node, or NULL on failure
