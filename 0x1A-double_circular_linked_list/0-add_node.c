@@ -10,6 +10,9 @@ List *add_node_end(List **list, char *str)
 {
 List *new_node, *tmp;
 
+if (list == NULL)
+	return (NULL);
+
 if (str == NULL)
 	return (NULL);
 
@@ -40,7 +43,7 @@ return (*list);
 
 
 /**
- * add_node_end - Add a new node to the end of a double circular linked list: 
+ * add_node_end - Add a new node to the end of a double circular linked list:
  * @list: list to be modify
  * @str: string to copy onto the new node
  * Return: Returns: Address of the new node, or NULL on failure
