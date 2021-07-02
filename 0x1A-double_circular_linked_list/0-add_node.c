@@ -1,4 +1,5 @@
 #include "list.h"
+
 /**
  * add_node_end - Add a new node to the end of a double circular linked list:
  * @list: list to be modify
