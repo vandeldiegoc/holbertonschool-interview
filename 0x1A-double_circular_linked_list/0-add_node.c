@@ -52,9 +52,6 @@ List *add_node_begin(List **list, char *str)
 {
 	List *new_node, *tmp;
 
-	if (!list)
-		return (NULL);
-
 	if (!str)
 		return (NULL);
 
